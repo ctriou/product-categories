@@ -1,0 +1,78 @@
+﻿<h3 class="mt-4">
+    Our Products</h3>
+<hr>
+<p>Browse and modify the current available offerings</p>
+<div class="list-group mt-4">
+    <a href="#" (click)="viewProduct(product.ProductId); false;" *ngFor="let product of products" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+            <div class="font-weight-bold mb-1">{{product.Name}}</div>
+            <a (click)="editProduct(product.ProductId)" href="#">
+                <i class="fas fa-pencil-alt" title="Click to edit this product"></i>
+            </a>
+        </div>
+        <p class="mb-1">{{product.Description}}</p>
+    </a>
+</div>
+<div class="clearfix mt-4">
+    <button type="button" class="btn btn-primary float-right" (click)="addProduct()">Add Product</button>
+</div>
+
+<ng-template #contentEdit let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{this.modalTitle}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form #productForm="ngForm">
+            <div class="form-group">
+                <label for="productName">Name</label>
+                <input *ngIf="!viewOnly" type="text" required name="productName" [(ngModel)]="activeProduct.Name" class="form-control" id="productName"
+                    placeholder="product name...">
+                <div *ngIf="viewOnly">{{activeProduct.Name}}</div>
+            </div>
+            <div class="form-group">
+                <label for="productUrl">Website</label>
+                <input *ngIf="!viewOnly" type="text" required name="productUrl" [(ngModel)]="activeProduct.Url" class="form-control" id="productUrl"
+                    placeholder="website...">
+                <div *ngIf="viewOnly">
+                    <a href="{{activeProduct.Url}}" target="_blank">{{activeProduct.Url}}</a>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="productDescription">Description</label>
+                <textarea *ngIf="!viewOnly" required name="productDescription" [(ngModel)]="activeProduct.Description" class="form-control"
+                    id="productDescription" placeholder="description..."></textarea>
+                <div *ngIf="viewOnly">{{activeProduct.Description}}</div>
+            </div>
+            <div class="form-group">
+                <div>Categories</div>
+                <hr class="mt-2">
+                <ng-container *ngIf="!viewOnly">
+                    <div *ngFor="let category of categories" class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" [checked]="checkedCategories[category.CategoryId]" (change)="checkedCategories[category.CategoryId] = !checkedCategories[category.CategoryId]"
+                                type="checkbox">{{category.Name}}
+                        </label>
+                    </div>
+                </ng-container>
+                <ul *ngIf="viewOnly" class="category-list">
+                    <ng-container *ngFor="let category of categories">
+                        <li *ngIf="checkedCategories[category.CategoryId]">{{category.Name}}</li>
+                    </ng-container>
+                </ul>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <ng-container *ngIf="viewOnly">
+            <button type="button" class="btn btn-light" (click)="switchToEdit()">Edit</button>
+            <button type="button" class="btn btn-primary" (click)="d('Cancelled')">Close</button>
+        </ng-container>
+        <ng-container *ngIf="!viewOnly">
+            <button type="button" class="btn btn-light" (click)="d('Cancelled')">Cancel</button>
+            <button type="button" class="btn btn-primary" [disabled]="!productForm.form.valid" (click)="saveChanges(activeProduct)">Save</button>
+        </ng-container>
+    </div>
+</ng-template>
