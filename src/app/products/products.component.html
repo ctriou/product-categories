@@ -26,23 +26,28 @@
     </div>
     <div class="modal-body">
         <form #productForm="ngForm">
+            <div class="alert alert-info" *ngIf="!viewOnly &amp;&amp; !productForm?.form?.valid">Please fill in the below information</div>
             <div class="form-group">
-                <label for="productName">Name</label>
-                <input *ngIf="!viewOnly" type="text" required name="productName" [(ngModel)]="activeProduct.Name" class="form-control" id="productName"
+                <label for="productName">Name <span *ngIf="!viewOnly &amp;&amp; !productName?.valid" class="invalid-star">*</span></label>              
+                <input [hidden]="viewOnly" type="text" required #productName="ngModel"
+                    name="productName" [(ngModel)]="activeProduct.Name" class="form-control" id="productName"
                     placeholder="product name...">
                 <div *ngIf="viewOnly">{{activeProduct.Name}}</div>
             </div>
+
             <div class="form-group">
-                <label for="productUrl">Website</label>
-                <input *ngIf="!viewOnly" type="text" required name="productUrl" [(ngModel)]="activeProduct.Url" class="form-control" id="productUrl"
+                <label for="productUrl">Website <span *ngIf="!viewOnly &amp;&amp; !productUrl?.valid" class="invalid-star">*</span></label>
+                <input [hidden]="viewOnly" type="text" required #productUrl="ngModel"
+                    name="productUrl" [(ngModel)]="activeProduct.Url" class="form-control" id="productUrl"
                     placeholder="website...">
                 <div *ngIf="viewOnly">
                     <a href="{{activeProduct.Url}}" target="_blank">{{activeProduct.Url}}</a>
                 </div>
             </div>
             <div class="form-group">
-                <label for="productDescription">Description</label>
-                <textarea *ngIf="!viewOnly" required name="productDescription" [(ngModel)]="activeProduct.Description" class="form-control"
+                <label for="productDescription">Description <span *ngIf="!viewOnly &amp;&amp; !productDescription?.valid" class="invalid-star">*</span></label>
+                <textarea [hidden]="viewOnly" required #productDescription="ngModel"
+                    name="productDescription" [(ngModel)]="activeProduct.Description" class="form-control"
                     id="productDescription" placeholder="description..."></textarea>
                 <div *ngIf="viewOnly">{{activeProduct.Description}}</div>
             </div>
@@ -72,7 +77,7 @@
         </ng-container>
         <ng-container *ngIf="!viewOnly">
             <button type="button" class="btn btn-light" (click)="d('Cancelled')">Cancel</button>
-            <button type="button" class="btn btn-primary" [disabled]="!productForm.form.valid" (click)="saveChanges(activeProduct)">Save</button>
+            <button type="button" class="btn btn-primary" [disabled]="!productForm?.form.valid" (click)="saveChanges(activeProduct)">Save</button>
         </ng-container>
     </div>
 </ng-template>

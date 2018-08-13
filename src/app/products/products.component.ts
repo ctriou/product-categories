@@ -64,6 +64,7 @@ export class ProductsComponent implements OnInit {
     addProduct() {
         this.modalTitle = this.modalTitles.add;
         this.activeProduct = new Product();
+        this.viewOnly = false;
         this.checkedCategories = {};
         this.activeModal = this.modalService.open(this.templateEdit, {});
     }

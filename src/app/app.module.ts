@@ -13,7 +13,6 @@ import { ProductsComponent } from './products/products.component';
     imports: [
         BrowserModule,
         FormsModule,
-        ReactiveFormsModule,
         HttpClientModule,
         NgbModule.forRoot()
     ],
