@@ -38,15 +38,18 @@ export class ProductsComponent implements OnInit {
         private modalService: NgbModal) { }
 
     ngOnInit() {
+        
         this.getProducts();
         this.getCategories();
     }
 
     getCategories() {
+        
         this.categoryService.getAll().subscribe(categories => this.categories = categories);
     }
 
     getCheckedCategories(product: Product, categories: Category[]): {[categoryId: number]: boolean} {
+        
         var checkedCategories = {};
         product.Categories.forEach(pc => {
             checkedCategories[pc.CategoryId] = true;
@@ -55,6 +58,7 @@ export class ProductsComponent implements OnInit {
     }
 
     getProducts() {
+        
         this.products = [];
         this.productService.getAll().subscribe(products => {
             this.products = products
@@ -62,6 +66,7 @@ export class ProductsComponent implements OnInit {
     }
 
     addProduct() {
+        
         this.modalTitle = this.modalTitles.add;
         this.activeProduct = new Product();
         this.viewOnly = false;
