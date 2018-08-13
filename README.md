@@ -1,6 +1,6 @@
 # Product Categories
 
-A UI that demonstrates editing a list of products, each product also has a list of categories. Developed as an exercise using Angular 6 and Bootstrap 4. Generally I'd have used the Angular CLI, but I wanted to experience setting up Angular 6 by hand. 
+A UI that demonstrates editing a list of products, each product also has a list of categories. Developed as an exercise using Angular 6 and Bootstrap 4.
 
 > Here's a screenshot of the main page
 
